@@ -1,2 +1,2 @@
-*. to implement that for single file without any arguements
-  *.it should include the file name in the output
+*. have to refactor the functions
+  *.have to worry about the three options --> now handling only two options

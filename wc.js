@@ -1,4 +1,4 @@
 const { readFileSync } = require("fs");
-const { count } = require("./src/lib.js");
+const { wc } = require("./src/lib.js");
 
-console.log(count(process.argv[2], readFileSync));
+console.log(wc(process.argv.slice(2), readFileSync));
