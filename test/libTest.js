@@ -33,6 +33,12 @@ describe("wc", () => {
     assert.deepEqual(input, "\t6\t7\t13 alphabets");
   });
 
+  it("with arguments provides line counts and a total for multiple files", () => {
+    let input = wc(["-w", "numbers", "alphabets"], readFileSync);
+    let expectedOutput = "\t7 numbers\n\t7 alphabets\n\t14 total";
+    assert.deepEqual(input, expectedOutput);
+  });
+
   it("it should return the number of lines in the file", () => {
     let input = wc(["numbers"], readFileSync);
     assert.deepEqual(input, "\t6\t7\t13 numbers");

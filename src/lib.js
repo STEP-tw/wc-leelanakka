@@ -41,6 +41,17 @@ const countForMultipleFiles = function(string, files) {
   return output;
 };
 
+const countForSingleFile = function(string, files, option) {
+  let output = string.map(x => optionOutput[option](x));
+  let totalCount = output.reduce(sum);
+  output = output.map((x, i) => formatOutput([x], files[i]));
+  output.push(formatOutput([totalCount], "total"));
+  return output;
+};
+
+const sum = function(num1, num2) {
+  return num1 + num2;
+};
 const sumArrays = function(array1, array2) {
   return array1.map((x, i) => x + array2[i]);
 };
@@ -48,6 +59,7 @@ const sumArrays = function(array1, array2) {
 const isSingleOption = function(option) {
   return option == "-c" || option == "-w" || option == "-l";
 };
+
 const wc = function(args, readFileSync) {
   let file = args;
   let option = "-l";
@@ -55,8 +67,11 @@ const wc = function(args, readFileSync) {
   if (isSingleOption(args[0])) {
     option = args[0];
     file = args.slice(1);
-    let content = readContent(file, readFileSync).join(NEWLINE);
-    let count = optionOutput[option](content);
+    let content = readContent(file, readFileSync);
+    if (file.length > 1) {
+      return countForSingleFile(content, file, option).join("\n");
+    }
+    let count = optionOutput[option](content.join("\n"));
     return formatOutput([count], file);
   }
 
@@ -68,7 +83,7 @@ const wc = function(args, readFileSync) {
     let content = readContent(file, readFileSync);
     return countForMultipleFiles(content, file).join(NEWLINE);
   }
-  
+
   let content = readContent(file, readFileSync);
   let count = allTypesOfCount(content.join(NEWLINE));
   return formatOutput(count, file);
