@@ -45,22 +45,31 @@ const sumArrays = function(array1, array2) {
   return array1.map((x, i) => x + array2[i]);
 };
 
+const isSingleOption = function(option) {
+  return option == "-c" || option == "-w" || option == "-l";
+};
 const wc = function(args, readFileSync) {
   let file = args;
   let option = "-l";
-  if (args[0].startsWith("-")) {
+
+  if (isSingleOption(args[0])) {
     option = args[0];
     file = args.slice(1);
     let content = readContent(file, readFileSync).join(NEWLINE);
     let count = optionOutput[option](content);
     return formatOutput([count], file);
   }
-  
-  let content = readContent(file, readFileSync);
-  if (file.length > 1) {
-    return countForMultipleFiles(content, file).join(NEWLINE);
+
+  if (args[0].startsWith("-")) {
+    file = args.slice(1);
   }
 
+  if (file.length > 1) {
+    let content = readContent(file, readFileSync);
+    return countForMultipleFiles(content, file).join(NEWLINE);
+  }
+  
+  let content = readContent(file, readFileSync);
   let count = allTypesOfCount(content.join(NEWLINE));
   return formatOutput(count, file);
 };

@@ -60,6 +60,18 @@ describe("wc", () => {
       "\t6\t7\t13 alphabets\n\t6\t7\t13 numbers\n\t12\t14\t26 total";
     assert.deepEqual(input, expectedOutput);
   });
+
+  it("should return all types of counts along with the total content for -wlc option", () => {
+    let input = wc(["-wlc", "alphabets"], readFileSync);
+    let expectedOutput = "\t6\t7\t13 alphabets";
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("should return all types of counts along with the total content for -lwc option", () => {
+    let input = wc(["-wlc", "numbers"], readFileSync);
+    let expectedOutput = "\t6\t7\t13 numbers";
+    assert.deepEqual(input, expectedOutput);
+  });
 });
 
 describe("wordCount", () => {
