@@ -1,10 +1,16 @@
 const lineCount = function(string) {
-  let noOfLines = string.split("\n").length;
+  let noOfLines = string.split("\n").length - 1;
   return "\t" + noOfLines;
 };
-const count = function(file, fs) {
-  let content = fs.readFileSync(file, "utf8");
-  return lineCount(content);
+
+const count = function(file, readFileSync) {
+  let content = readFileSync(file, "utf8");
+  let lines = lineCount(content);
+  return addFileName(lines, file);
 };
 
-module.exports = { lineCount, count };
+const addFileName = function(string, file) {
+  return `${string} ${file}`;
+};
+
+module.exports = { lineCount, count ,addFileName};
