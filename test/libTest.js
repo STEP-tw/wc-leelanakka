@@ -4,7 +4,10 @@ const {
   wc,
   wordCount,
   byteCount,
-  formatOutput
+  formatOutput,
+  readContent,
+  countForMultipleFiles,
+  sumArrays
 } = require("../src/lib.js");
 
 const contents = {
@@ -50,6 +53,13 @@ describe("wc", () => {
   it("should return the total number of characters present in the file for -c as option", () => {
     assert.deepEqual(wc(["-c", "alphabets"], readFileSync), "\t13 alphabets");
   });
+
+  it("should return all types of counts along with the total content ", () => {
+    let input = wc(["alphabets", "numbers"], readFileSync);
+    let expectedOutput =
+      "\t6\t7\t13 alphabets\n\t6\t7\t13 numbers\n\t12\t14\t26 total";
+    assert.deepEqual(input, expectedOutput);
+  });
 });
 
 describe("wordCount", () => {
@@ -79,6 +89,34 @@ describe("formatOutput", () => {
   it("should format the output if the multiple counts are in array and file name", () => {
     let input = formatOutput([9, 28, 1998], "file");
     let expectedOutput = "\t9\t28\t1998 file";
+    assert.deepEqual(input, expectedOutput);
+  });
+});
+
+describe("readContent", () => {
+  it("should return the content of the single file in an array", () => {
+    assert.deepEqual(readContent(["alphabets"], readFileSync), [
+      "a\nb\nc\nd\ne\nf\ng"
+    ]);
+  });
+
+  it("should return the content of the multiple files in an array", () => {
+    let input = readContent(["alphabets", "numbers"], readFileSync);
+    assert.deepEqual(input, ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"]);
+  });
+});
+
+describe("countForMultipleFiles", () => {
+  it("it should return all types of the contents along with total at the end", () => {
+    let input = countForMultipleFiles(
+      ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
+      ["alphabets", "numbers"]
+    );
+    let expectedOutput = [
+      "\t6\t7\t13 alphabets",
+      "\t6\t7\t13 numbers",
+      "\t12\t14\t26 total"
+    ];
     assert.deepEqual(input, expectedOutput);
   });
 });

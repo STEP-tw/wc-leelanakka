@@ -2,7 +2,7 @@ const TAB = "\t";
 const NEWLINE = "\n";
 
 const lineCount = function(string) {
-  let numberOfLines = string.split("\n").length - 1;
+  let numberOfLines = string.split(NEWLINE).length - 1;
   return numberOfLines;
 };
 
@@ -29,17 +29,40 @@ const allTypesOfCount = function(string) {
   return [lineCount(string), wordCount(string), byteCount(string)];
 };
 
+const readContent = function(files, readFileSync) {
+  return files.map(fileName => readFileSync(fileName, "utf8"));
+};
+
+const countForMultipleFiles = function(string, files) {
+  let output = string.map(x => allTypesOfCount(x));
+  let totalCount = output.reduce(sumArrays);
+  output = output.map((x, i) => formatOutput(x, files[i]));
+  output.push(formatOutput(totalCount, "total"));
+  return output;
+};
+
+const sumArrays = function(array1, array2) {
+  return array1.map((x, i) => x + array2[i]);
+};
+
 const wc = function(args, readFileSync) {
-  let file = args[1] || args[0];
-  let content = readFileSync(file, "utf8");
+  let file = args;
+  let content = readContent(file, readFileSync);
   let option = "-l";
-  let count = [];
+
   if (args[0].startsWith("-")) {
     option = args[0];
-    count = optionOutput[option](content);
+    file = args.slice(1);
+    content = readContent(file, readFileSync).join(NEWLINE);
+    let count = optionOutput[option](content);
     return formatOutput([count], file);
   }
-  count = allTypesOfCount(content);
+
+  if (file.length > 1) {
+    return countForMultipleFiles(content, file).join(NEWLINE);
+  }
+
+  let count = allTypesOfCount(content.join(NEWLINE));
   return formatOutput(count, file);
 };
 
@@ -52,5 +75,8 @@ module.exports = {
   wc,
   wordCount,
   byteCount,
-  formatOutput
+  formatOutput,
+  readContent,
+  countForMultipleFiles,
+  sumArrays
 };
