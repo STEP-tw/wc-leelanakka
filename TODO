@@ -1,2 +1,1 @@
-*. have to refactor the functions
-  *.have to worry about the three options --> now handling only two options
+*.should work for the default arguments

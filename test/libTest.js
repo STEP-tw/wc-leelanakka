@@ -1,5 +1,11 @@
 const assert = require("assert");
-const { lineCount, wc, addFileName, wordCount } = require("../src/lib.js");
+const {
+  lineCount,
+  wc,
+  wordCount,
+  byteCount,
+  formatOutput
+} = require("../src/lib.js");
 
 const contents = {
   alphabets: "a\nb\nc\nd\ne\nf\ng",
@@ -33,19 +39,47 @@ describe("wc", () => {
     assert.deepEqual(wc(["-w", "numbers"], readFileSync), "\t7 numbers");
   });
 
-  it("should return the total numeber of words present in the file", () => {
+  it("should return the total number of words present in the file", () => {
     assert.deepEqual(wc(["-w", "strings"], readFileSync), "\t10 strings");
   });
-});
 
-describe("addFileName", () => {
-  it("it should concate the given string with the given file name", () => {
-    assert.deepEqual(addFileName("1", "leela"), "1" + " " + "leela");
+  it("should return the total number of lines present in the file for -l as option", () => {
+    assert.deepEqual(wc(["-l", "strings"], readFileSync), "\t5 strings");
   });
+
+  it("should return the total number of characters present in the file for -c as option", () => {
+    assert.deepEqual(wc(["-c", "alphabets"], readFileSync), "\t13 alphabets");
+  });
+
 });
 
 describe("wordCount", () => {
   it("should return the number of words present in the string", () => {
     assert.deepEqual(wordCount("leela"), "\t1");
+  });
+});
+
+describe("byteCount", () => {
+  it("it should return the number of characters in the string", () => {
+    assert.deepEqual(byteCount("hello"), 5);
+  });
+
+  it("should return the byte count even for string containing new lines", () => {
+    assert.deepEqual(byteCount("break\ntime"), 10);
+    assert.deepEqual(byteCount("         "), 9);
+  });
+});
+
+describe("formatOutput", () => {
+  it("should format the output if the single count are in array and file name", () => {
+    let input = formatOutput([9], "file");
+    let expectedOutput = "\t9 file";
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("should format the output if the multiple counts are in array and file name", () => {
+    let input = formatOutput([9, 28, 1998], "file");
+    let expectedOutput = "\t9\t28\t1998 file";
+    assert.deepEqual(input, expectedOutput);
   });
 });
