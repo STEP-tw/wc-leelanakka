@@ -47,17 +47,16 @@ const sumArrays = function(array1, array2) {
 
 const wc = function(args, readFileSync) {
   let file = args;
-  let content = readContent(file, readFileSync);
   let option = "-l";
-
   if (args[0].startsWith("-")) {
     option = args[0];
     file = args.slice(1);
-    content = readContent(file, readFileSync).join(NEWLINE);
+    let content = readContent(file, readFileSync).join(NEWLINE);
     let count = optionOutput[option](content);
     return formatOutput([count], file);
   }
-
+  
+  let content = readContent(file, readFileSync);
   if (file.length > 1) {
     return countForMultipleFiles(content, file).join(NEWLINE);
   }
