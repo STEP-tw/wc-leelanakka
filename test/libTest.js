@@ -27,12 +27,12 @@ describe("lineCount", () => {
 describe("wc", () => {
   it("it should return the number of the lines in a file", () => {
     let input = wc(["alphabets"], readFileSync);
-    assert.deepEqual(input, "\t6 alphabets");
+    assert.deepEqual(input, "\t6\t7\t13 alphabets");
   });
 
   it("it should return the number of lines in the file", () => {
     let input = wc(["numbers"], readFileSync);
-    assert.deepEqual(input, "\t6 numbers");
+    assert.deepEqual(input, "\t6\t7\t13 numbers");
   });
 
   it("should return the number of words and file name if option is -w", () => {
@@ -50,7 +50,6 @@ describe("wc", () => {
   it("should return the total number of characters present in the file for -c as option", () => {
     assert.deepEqual(wc(["-c", "alphabets"], readFileSync), "\t13 alphabets");
   });
-
 });
 
 describe("wordCount", () => {
