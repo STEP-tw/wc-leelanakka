@@ -34,19 +34,14 @@ const readContent = function(files, readFileSync) {
   return files.map(fileName => readFileSync(fileName, "utf8"));
 };
 
-const countForMultipleFiles = function(string, files) {
-  let output = string.map(x => allTypesOfCount(x));
+const countForMultipleFiles = function(string, files, option) {
+  let output = string.map(x => {
+    if (option == "default") return optionOutput[option](x);
+    return [optionOutput[option](x)];
+  });
   let totalCount = output.reduce(sumArrays);
   output = output.map((x, i) => formatOutput(x, files[i]));
   output.push(formatOutput(totalCount, "total"));
-  return output;
-};
-
-const countForSingleFile = function(string, files, option) {
-  let output = string.map(x => optionOutput[option](x));
-  let totalCount = output.reduce(sum);
-  output = output.map((x, i) => formatOutput([x], files[i]));
-  output.push(formatOutput([totalCount], "total"));
   return output;
 };
 
@@ -80,7 +75,7 @@ const wc = function(args, readFileSync) {
     file = args.slice(1);
     let content = readContent(file, readFileSync);
     if (file.length > 1) {
-      return countForSingleFile(content, file, option).join("\n");
+      return countForMultipleFiles(content, file, option).join("\n");
     }
     let count = optionOutput[option](content.join("\n"));
     return formatOutput([count], file);
@@ -92,7 +87,7 @@ const wc = function(args, readFileSync) {
 
   if (file.length > 1) {
     let content = readContent(file, readFileSync);
-    return countForMultipleFiles(content, file).join(NEWLINE);
+    return countForMultipleFiles(content, file, "default").join(NEWLINE);
   }
   let content = readContent(file, readFileSync);
   let count = allTypesOfCount(content.join(NEWLINE));

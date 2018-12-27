@@ -130,12 +130,51 @@ describe("countForMultipleFiles", () => {
   it("it should return all types of the contents along with total at the end", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
-      ["alphabets", "numbers"]
+      ["alphabets", "numbers"],"default"
     );
     let expectedOutput = [
       "\t6\t7\t13 alphabets",
       "\t6\t7\t13 numbers",
       "\t12\t14\t26 total"
+    ];
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("it should return word count of the contents along with total at the end", () => {
+    let input = countForMultipleFiles(
+      ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
+      ["alphabets", "numbers"],"-w"
+    );
+    let expectedOutput = [
+      "\t7 alphabets",
+      "\t7 numbers",
+      "\t14 total"
+    ];
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("it should return line count of the contents along with total at the end", () => {
+    let input = countForMultipleFiles(
+      ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
+      ["alphabets", "numbers"],"-l"
+    );
+    let expectedOutput = [
+      "\t6 alphabets",
+      "\t6 numbers",
+      "\t12 total"
+    ];
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("it should return byt count of the contents along with total at the end", () => {
+    let input = countForMultipleFiles(
+      ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
+      ["alphabets", "numbers"],"-c"
+    );
+    let expectedOutput = [
+      "\t13 alphabets",
+      "\t13 numbers",
+      "\t26 total"
     ];
     assert.deepEqual(input, expectedOutput);
   });
