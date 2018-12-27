@@ -27,7 +27,7 @@ const optionOutput = {
   "-l": lineCount,
   "-w": wordCount,
   "-c": byteCount,
-  "default": allTypesOfCount
+  default: allTypesOfCount
 };
 
 const readContent = function(files, readFileSync) {
@@ -62,10 +62,19 @@ const isSingleOption = function(option) {
   return option == "-c" || option == "-w" || option == "-l";
 };
 
+const isMultipleOptions = function(args) {
+  return args[1] == "-c" || args[1] == "-w" || args[1] == "-l";
+};
+
 const wc = function(args, readFileSync) {
   let file = args;
   let option = "-l";
-
+  if (isMultipleOptions(args)) {
+    file = args.slice(-1);
+    let content = readContent(file, readFileSync);
+    let count = allTypesOfCount(content.join(NEWLINE));
+    return formatOutput(count, file);
+  }
   if (isSingleOption(args[0])) {
     option = args[0];
     file = args.slice(1);
@@ -85,7 +94,6 @@ const wc = function(args, readFileSync) {
     let content = readContent(file, readFileSync);
     return countForMultipleFiles(content, file).join(NEWLINE);
   }
-
   let content = readContent(file, readFileSync);
   let count = allTypesOfCount(content.join(NEWLINE));
   return formatOutput(count, file);

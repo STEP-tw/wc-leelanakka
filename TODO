@@ -1,1 +1,12 @@
-*.should handle for the single options with multiple files
+* should handle for three options if they are given seperately
+  *.should extract the parser functions into a file
+  *.
+  should handle for the two options
+
+
+  if (isMultipleargs(args)) {
+    file = args.slice(-1);
+    let content = readContent(file, readFileSync);
+    let count = allTypesOfCount(content);
+    return formatOutput(count,file) 
+  }
