@@ -79,7 +79,7 @@ const wc = function(args, readFileSync) {
 
   if (isTwoOptions(args)) {
     file = args.slice(-1);
-    options = sortOptions(args.slice(0, 2));
+    options = sortOptions(args.slice(0, -1));
     let content = readContent(file, readFileSync);
     return countForTwoOptions(content, file, options).join(NEWLINE);
   }

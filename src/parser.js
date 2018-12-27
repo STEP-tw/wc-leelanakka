@@ -28,6 +28,7 @@ const sortOptions = function(options) {
   ) {
     return ["-l", "-c"];
   }
+
   return ["-l", "-w"];
 };
 
