@@ -7,10 +7,10 @@ const {
   formatOutput,
   readContent,
   countForMultipleFiles,
-  sumArrays,
-  isSingleOption
+  sumArrays
 } = require("../src/lib.js");
 
+const { isMultipleOptions, isSingleOption } = require("../src/parser.js");
 const contents = {
   alphabets: "a\nb\nc\nd\ne\nf\ng",
   numbers: "1\n2\n3\n4\n5\n6\n7",
@@ -205,5 +205,22 @@ describe("isSingleOption", () => {
 
   it("should return the false for multiple arguements", () => {
     assert.deepEqual(isSingleOption("-c -w"), false);
+  });
+});
+
+describe("isMultipleOptions", () => {
+  it("should return true for -l -w -c", () => {
+    assert.deepEqual(isMultipleOptions(["-l", "-w", "-c"]), true);
+  });
+
+  it("should return true for -l -w -c", () => {
+    assert.deepEqual(isMultipleOptions(["-l", "-c", "-w"]), true);
+  });
+
+  it("should return true for -l -w -c", () => {
+    assert.deepEqual(isMultipleOptions(["-c", "-w", "-l"]), true);
+  });
+  it("should return false for -l -w ", () => {
+    assert.deepEqual(isMultipleOptions(["-l", "-w"]), false);
   });
 });

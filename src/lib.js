@@ -1,3 +1,5 @@
+const { isMultipleOptions, isSingleOption } = require("./parser.js");
+
 const TAB = "\t";
 const NEWLINE = "\n";
 
@@ -49,14 +51,6 @@ const countForMultipleFiles = function(string, files, option) {
 
 const sumArrays = function(array1, array2) {
   return array1.map((x, i) => x + array2[i]);
-};
-
-const isSingleOption = function(option) {
-  return option == "-c" || option == "-w" || option == "-l";
-};
-
-const isMultipleOptions = function(args) {
-  return args[2] == "-c" || args[2] == "-w" || args[2] == "-l";
 };
 
 const wc = function(args, readFileSync) {
