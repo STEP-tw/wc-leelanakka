@@ -71,9 +71,6 @@ const wc = function(args, readFileSync) {
     option = args[0];
     file = args.slice(1);
     let content = readContent(file, readFileSync);
-    if (file.length > 1) {
-      return countForMultipleFiles(content, file, option).join(NEWLINE);
-    }
     return countForMultipleFiles(content, file, option).join(NEWLINE);
   }
 
