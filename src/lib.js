@@ -1,7 +1,8 @@
 const {
   isMultipleOptions,
   isSingleOption,
-  isTwoOptions
+  isTwoOptions,
+  sortOptions
 } = require("./parser.js");
 
 const TAB = "\t";
@@ -78,7 +79,7 @@ const wc = function(args, readFileSync) {
 
   if (isTwoOptions(args)) {
     file = args.slice(-1);
-    options = args.slice(0, 2);
+    options = sortOptions(args.slice(0, 2));
     let content = readContent(file, readFileSync);
     return countForTwoOptions(content, file, options).join(NEWLINE);
   }

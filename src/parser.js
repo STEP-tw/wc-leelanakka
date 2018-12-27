@@ -10,4 +10,20 @@ const isTwoOptions = function(args) {
   return isSingleOption(args[1]);
 };
 
-module.exports = { isMultipleOptions, isSingleOption, isTwoOptions };
+const sortOptions = function(options) {
+  if (!options.includes("-l")) {
+    return ["-w", "-c"];
+  }
+
+  if (!options.includes("-w")) {
+    return ["-l", "-c"];
+  }
+  return ["-l", "-w"];
+};
+
+module.exports = {
+  isMultipleOptions,
+  isSingleOption,
+  isTwoOptions,
+  sortOptions
+};

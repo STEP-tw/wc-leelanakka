@@ -1,5 +1,10 @@
 const assert = require("assert");
-const { isMultipleOptions, isSingleOption } = require("../src/parser.js");
+const {
+  isMultipleOptions,
+  isSingleOption,
+  isTwoOptions,
+  sortOptions
+} = require("../src/parser.js");
 
 describe("isSingleOption", () => {
   it("should return the true if the arguement is -w", () => {
@@ -37,5 +42,17 @@ describe("isMultipleOptions", () => {
   });
   it("should return false for -l -w ", () => {
     assert.deepEqual(isMultipleOptions(["-l", "-w"]), false);
+  });
+});
+
+describe("isTwoOptons", () => {
+  it("should return true if the options are -l,-w", () => {
+    assert.deepEqual(isTwoOptions(["-l", "-w"]), true);
+  });
+});
+
+describe("sortOptions", () => {
+  it("should return the sorted options for given input of two types of inouts", () => {
+    assert.deepEqual(sortOptions(["-w", "-l"]), ["-l", "-w"]);
   });
 });
