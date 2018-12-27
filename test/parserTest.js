@@ -54,5 +54,6 @@ describe("isTwoOptons", () => {
 describe("sortOptions", () => {
   it("should return the sorted options for given input of two types of inouts", () => {
     assert.deepEqual(sortOptions(["-w", "-l"]), ["-l", "-w"]);
+    assert.deepEqual(sortOptions(["-wl"]), ["-l", "-w"]);
   });
 });

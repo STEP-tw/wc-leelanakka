@@ -7,15 +7,25 @@ const isMultipleOptions = function(args) {
 };
 
 const isTwoOptions = function(args) {
-  return isSingleOption(args[1]);
+  return isSingleOption(args[1]) || args[0].length == 3;
 };
 
 const sortOptions = function(options) {
-  if (!options.includes("-l")) {
+  if (
+    !options
+      .join("")
+      .split("")
+      .includes("l")
+  ) {
     return ["-w", "-c"];
   }
 
-  if (!options.includes("-w")) {
+  if (
+    !options
+      .join("")
+      .split("")
+      .includes("w")
+  ) {
     return ["-l", "-c"];
   }
   return ["-l", "-w"];
