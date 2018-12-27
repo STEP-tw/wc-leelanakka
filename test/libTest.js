@@ -8,7 +8,6 @@ const {
   readContent,
   countForMultipleFiles,
   sumArrays,
-  sum,
   isSingleOption
 } = require("../src/lib.js");
 
@@ -130,7 +129,8 @@ describe("countForMultipleFiles", () => {
   it("it should return all types of the contents along with total at the end", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
-      ["alphabets", "numbers"],"default"
+      ["alphabets", "numbers"],
+      "default"
     );
     let expectedOutput = [
       "\t6\t7\t13 alphabets",
@@ -143,39 +143,30 @@ describe("countForMultipleFiles", () => {
   it("it should return word count of the contents along with total at the end", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
-      ["alphabets", "numbers"],"-w"
+      ["alphabets", "numbers"],
+      "-w"
     );
-    let expectedOutput = [
-      "\t7 alphabets",
-      "\t7 numbers",
-      "\t14 total"
-    ];
+    let expectedOutput = ["\t7 alphabets", "\t7 numbers", "\t14 total"];
     assert.deepEqual(input, expectedOutput);
   });
 
   it("it should return line count of the contents along with total at the end", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
-      ["alphabets", "numbers"],"-l"
+      ["alphabets", "numbers"],
+      "-l"
     );
-    let expectedOutput = [
-      "\t6 alphabets",
-      "\t6 numbers",
-      "\t12 total"
-    ];
+    let expectedOutput = ["\t6 alphabets", "\t6 numbers", "\t12 total"];
     assert.deepEqual(input, expectedOutput);
   });
 
   it("it should return byt count of the contents along with total at the end", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
-      ["alphabets", "numbers"],"-c"
+      ["alphabets", "numbers"],
+      "-c"
     );
-    let expectedOutput = [
-      "\t13 alphabets",
-      "\t13 numbers",
-      "\t26 total"
-    ];
+    let expectedOutput = ["\t13 alphabets", "\t13 numbers", "\t26 total"];
     assert.deepEqual(input, expectedOutput);
   });
 });
@@ -208,11 +199,5 @@ describe("isSingleOption", () => {
 
   it("should return the false for multiple arguements", () => {
     assert.deepEqual(isSingleOption("-c -w"), false);
-  });
-});
-
-describe("sum", () => {
-  it("should return the sum of the two numbers", () => {
-    assert.deepEqual(sum(1, 2), 3);
   });
 });

@@ -45,10 +45,6 @@ const countForMultipleFiles = function(string, files, option) {
   return output;
 };
 
-const sum = function(num1, num2) {
-  return num1 + num2;
-};
-
 const sumArrays = function(array1, array2) {
   return array1.map((x, i) => x + array2[i]);
 };
@@ -107,6 +103,5 @@ module.exports = {
   readContent,
   countForMultipleFiles,
   sumArrays,
-  sum,
   isSingleOption
 };
