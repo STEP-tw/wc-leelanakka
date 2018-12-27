@@ -3,7 +3,11 @@ const isSingleOption = function(option) {
 };
 
 const isMultipleOptions = function(args) {
-  return args[2] == "-c" || args[2] == "-w" || args[2] == "-l";
+  return isSingleOption(args[2]);
 };
 
-module.exports = { isMultipleOptions, isSingleOption };
+const isTwoOptions = function(args) {
+  return isSingleOption(args[1]);
+};
+
+module.exports = { isMultipleOptions, isSingleOption, isTwoOptions };

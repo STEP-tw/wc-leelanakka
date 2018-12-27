@@ -1,4 +1,8 @@
-const { isMultipleOptions, isSingleOption } = require("./parser.js");
+const {
+  isMultipleOptions,
+  isSingleOption,
+  isTwoOptions
+} = require("./parser.js");
 
 const TAB = "\t";
 const NEWLINE = "\n";
@@ -53,6 +57,15 @@ const sumArrays = function(array1, array2) {
   return array1.map((x, i) => x + array2[i]);
 };
 
+const countForTwoOptions = function(string, files, options) {
+  let output = string.map((x, i) => [
+    optionOutput[options[i]](x),
+    optionOutput[options[i + 1]](x)
+  ]);
+  output = output.map((x, i) => formatOutput(x, files[i]));
+  return output;
+};
+
 const wc = function(args, readFileSync) {
   let file = args;
   let option = "-l";
@@ -61,6 +74,13 @@ const wc = function(args, readFileSync) {
     file = args.slice(-1);
     let content = readContent(file, readFileSync);
     return countForMultipleFiles(content, file, "default").join(NEWLINE);
+  }
+
+  if (isTwoOptions(args)) {
+    file = args.slice(-1);
+    options = args.slice(0, 2);
+    let content = readContent(file, readFileSync);
+    return countForTwoOptions(content, file, options).join(NEWLINE);
   }
 
   if (isSingleOption(args[0])) {
@@ -91,5 +111,6 @@ module.exports = {
   readContent,
   countForMultipleFiles,
   sumArrays,
-  isSingleOption
+  isSingleOption,
+  countForTwoOptions
 };
