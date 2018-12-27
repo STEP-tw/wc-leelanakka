@@ -41,7 +41,9 @@ const countForMultipleFiles = function(string, files, option) {
   });
   let totalCount = output.reduce(sumArrays);
   output = output.map((x, i) => formatOutput(x, files[i]));
-  output.push(formatOutput(totalCount, "total"));
+  if (files.length > 1) {
+    output.push(formatOutput(totalCount, "total"));
+  }
   return output;
 };
 
@@ -60,34 +62,27 @@ const isMultipleOptions = function(args) {
 const wc = function(args, readFileSync) {
   let file = args;
   let option = "-l";
+
   if (isMultipleOptions(args)) {
     file = args.slice(-1);
-    let content = readContent(file, readFileSync);
-    let count = allTypesOfCount(content.join(NEWLINE));
-    return formatOutput(count, file);
   }
+
   if (isSingleOption(args[0])) {
     option = args[0];
     file = args.slice(1);
     let content = readContent(file, readFileSync);
     if (file.length > 1) {
-      return countForMultipleFiles(content, file, option).join("\n");
+      return countForMultipleFiles(content, file, option).join(NEWLINE);
     }
-    let count = optionOutput[option](content.join("\n"));
-    return formatOutput([count], file);
+    return countForMultipleFiles(content, file, option).join(NEWLINE);
   }
 
   if (args[0].startsWith("-")) {
     file = args.slice(1);
   }
 
-  if (file.length > 1) {
-    let content = readContent(file, readFileSync);
-    return countForMultipleFiles(content, file, "default").join(NEWLINE);
-  }
   let content = readContent(file, readFileSync);
-  let count = allTypesOfCount(content.join(NEWLINE));
-  return formatOutput(count, file);
+  return countForMultipleFiles(content, file, "default").join(NEWLINE);
 };
 
 const formatOutput = function(counts, file) {
