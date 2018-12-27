@@ -7,7 +7,9 @@ const {
   formatOutput,
   readContent,
   countForMultipleFiles,
-  sumArrays
+  sumArrays,
+  sum,
+  isSingleOption
 } = require("../src/lib.js");
 
 const contents = {
@@ -136,5 +138,42 @@ describe("countForMultipleFiles", () => {
       "\t12\t14\t26 total"
     ];
     assert.deepEqual(input, expectedOutput);
+  });
+});
+
+describe("sumArrays", () => {
+  it("should return the sum of numbers in an array if given input is as array of arrays", () => {
+    assert.deepEqual(sumArrays([1, 2, 3], [4, 5, 6]), [5, 7, 9]);
+  });
+  it("should return sum for single elements in each array", () => {
+    assert.deepEqual(sumArrays([1], [4]), [5]);
+  });
+});
+
+describe("isSingleOption", () => {
+  it("should return the true if the arguement is -w", () => {
+    assert.deepEqual(isSingleOption("-w"), true);
+  });
+
+  it("should return the true if the arguement is -c", () => {
+    assert.deepEqual(isSingleOption("-c"), true);
+  });
+
+  it("should return the true if the arguement is -l", () => {
+    assert.deepEqual(isSingleOption("-l"), true);
+  });
+
+  it("should return the false if the arguement is other than -l,-c,-w", () => {
+    assert.deepEqual(isSingleOption("-m"), false);
+  });
+
+  it("should return the false for multiple arguements", () => {
+    assert.deepEqual(isSingleOption("-c -w"), false);
+  });
+});
+
+describe("sum", () => {
+  it("should return the sum of the two numbers", () => {
+    assert.deepEqual(sum(1, 2), 3);
   });
 });

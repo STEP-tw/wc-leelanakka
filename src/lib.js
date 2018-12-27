@@ -19,14 +19,15 @@ const byteCount = function(string) {
   return string.length;
 };
 
+const allTypesOfCount = function(string) {
+  return [lineCount(string), wordCount(string), byteCount(string)];
+};
+
 const optionOutput = {
   "-l": lineCount,
   "-w": wordCount,
-  "-c": byteCount
-};
-
-const allTypesOfCount = function(string) {
-  return [lineCount(string), wordCount(string), byteCount(string)];
+  "-c": byteCount,
+  "default": allTypesOfCount
 };
 
 const readContent = function(files, readFileSync) {
@@ -52,6 +53,7 @@ const countForSingleFile = function(string, files, option) {
 const sum = function(num1, num2) {
   return num1 + num2;
 };
+
 const sumArrays = function(array1, array2) {
   return array1.map((x, i) => x + array2[i]);
 };
@@ -101,5 +103,7 @@ module.exports = {
   formatOutput,
   readContent,
   countForMultipleFiles,
-  sumArrays
+  sumArrays,
+  sum,
+  isSingleOption
 };
