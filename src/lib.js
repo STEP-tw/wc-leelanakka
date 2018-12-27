@@ -56,7 +56,7 @@ const isSingleOption = function(option) {
 };
 
 const isMultipleOptions = function(args) {
-  return args[1] == "-c" || args[1] == "-w" || args[1] == "-l";
+  return args[2] == "-c" || args[2] == "-w" || args[2] == "-l";
 };
 
 const wc = function(args, readFileSync) {
@@ -65,6 +65,8 @@ const wc = function(args, readFileSync) {
 
   if (isMultipleOptions(args)) {
     file = args.slice(-1);
+    let content = readContent(file, readFileSync);
+    return countForMultipleFiles(content, file, "default").join(NEWLINE);
   }
 
   if (isSingleOption(args[0])) {

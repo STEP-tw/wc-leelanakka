@@ -75,7 +75,13 @@ describe("wc", () => {
   });
 
   it("should return all types of counts along with the total content for -lwc option", () => {
-    let input = wc(["-wlc", "numbers"], readFileSync);
+    let input = wc(["-lwc", "numbers"], readFileSync);
+    let expectedOutput = "\t6\t7\t13 numbers";
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("should return all types of counts along with the total content for -lwc option", () => {
+    let input = wc(["-w", "-l", "-c", "numbers"], readFileSync);
     let expectedOutput = "\t6\t7\t13 numbers";
     assert.deepEqual(input, expectedOutput);
   });
