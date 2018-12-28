@@ -25,8 +25,8 @@ const byteCount = function(string) {
   return string.length;
 };
 
-const allTypesOfCount = function(string) {
-  return [lineCount(string), wordCount(string), byteCount(string)];
+const allTypesOfCount = function(string, options) {
+  return options.map(x => optionOutput[x](string));
 };
 
 const optionOutput = {
@@ -42,8 +42,7 @@ const readContent = function(files, readFileSync) {
 
 const countForMultipleFiles = function(string, files, option) {
   let output = string.map(x => {
-    if (option == "default") return optionOutput[option](x);
-    return [optionOutput[option](x)];
+    return allTypesOfCount(x, option);
   });
   let totalCount = output.reduce(sumArrays);
   output = output.map((x, i) => formatOutput(x, files[i]));
@@ -57,26 +56,16 @@ const sumArrays = function(array1, array2) {
   return array1.map((x, i) => x + array2[i]);
 };
 
-const countForTwoOptions = function(string, files, options) {
-  let output = string.map((x, i) => [
-    optionOutput[options[i]](x),
-    optionOutput[options[i + 1]](x)
-  ]);
-  output = output.map((x, i) => formatOutput(x, files[i]));
-  return output;
-};
-
 const wc = function(args, readFileSync) {
   let { options, fileNames } = parseInputs(args);
   if (options.length == 3) {
     let content = readContent(fileNames, readFileSync);
-    return countForMultipleFiles(content, fileNames, "default").join(NEWLINE);
+    return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
   }
 
   if (options.length == 2) {
-    options = sortOptions(options);
     let content = readContent(fileNames, readFileSync);
-    return countForTwoOptions(content, fileNames, options).join(NEWLINE);
+    return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
   }
   let content = readContent(fileNames, readFileSync);
   return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
@@ -95,6 +84,5 @@ module.exports = {
   readContent,
   countForMultipleFiles,
   sumArrays,
-  isSingleOption,
-  countForTwoOptions
+  isSingleOption
 };
