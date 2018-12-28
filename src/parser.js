@@ -32,9 +32,23 @@ const sortOptions = function(options) {
   return ["-l", "-w"];
 };
 
+const parseInputs = function(args) {
+  let index = 0;
+  let options = [];
+  while (index < args.length && args[index].startsWith("-")) {
+    options.push(args[index]);
+    index++;
+  }
+  if (index == 0) {
+    options = ["-lcw"];
+  }
+  let fileNames = args.slice(index);
+  return { options, fileNames };
+};
 module.exports = {
   isMultipleOptions,
   isSingleOption,
   isTwoOptions,
-  sortOptions
+  sortOptions,
+  parseInputs
 };

@@ -7,18 +7,22 @@ const {
 
 const TAB = "\t";
 const NEWLINE = "\n";
+const SPACE = " ";
+const EMPTY = "";
 
 const lineCount = function(string) {
   let numberOfLines = string.split(NEWLINE).length - 1;
   return numberOfLines;
 };
 
+const isNotEmpty = x => x !== EMPTY;
+
 const wordCount = function(string) {
   let numberOfWords = string
     .split(NEWLINE)
-    .join(" ")
-    .split(" ")
-    .filter(x => x !== "").length;
+    .join(SPACE)
+    .split(SPACE)
+    .filter(isNotEmpty).length;
   return numberOfWords;
 };
 
