@@ -10,6 +10,17 @@ const isTwoOptions = function(args) {
   return isSingleOption(args[1]) || args[0].length == 3;
 };
 
+const uniqueThings = function(array, element) {
+  if (array.includes(element)) {
+    return array;
+  }
+  return array.concat([element]);
+};
+
+const findUniqueElements = function(array) {
+  return array.reduce(uniqueThings, []);
+};
+
 const sortOptions = function(options) {
   if (
     !options
@@ -43,10 +54,9 @@ const parseInputs = function(args) {
   if (index == 0) {
     options = ["-lcw"];
   }
-
+  options = findUniqueElements(options);
   let fileNames = args.slice(index);
   return { options, fileNames };
-  
 };
 module.exports = {
   isMultipleOptions,

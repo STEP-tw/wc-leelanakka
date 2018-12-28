@@ -1,10 +1,4 @@
-const {
-  isMultipleOptions,
-  isSingleOption,
-  isTwoOptions,
-  sortOptions,
-  parseInputs
-} = require("./parser.js");
+const { isSingleOption, sortOptions, parseInputs } = require("./parser.js");
 
 const TAB = "\t";
 const NEWLINE = "\n";

@@ -94,4 +94,11 @@ describe("parseOptions", () => {
       fileNames: ["file1", "file2"]
     });
   });
+
+  it("should retun only elements that starts with -", () => {
+    assert.deepEqual(parseInputs(["-l", "-l"]), {
+      options: ["-l"],
+      fileNames: []
+    });
+  });
 });
