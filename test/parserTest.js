@@ -1,8 +1,5 @@
 const assert = require("assert");
-const {
-  sortOptions,
-  parseInputs
-} = require("../src/parser.js");
+const { sortOptions, parseInputs } = require("../src/parser.js");
 
 describe("sortOptions", () => {
   it("should return the sorted options for given input of two types of inouts", () => {

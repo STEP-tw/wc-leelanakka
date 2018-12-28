@@ -1,4 +1,4 @@
-const { isSingleOption, sortOptions, parseInputs } = require("./parser.js");
+const { isSingleOption, parseInputs } = require("./parser.js");
 
 const TAB = "\t";
 const NEWLINE = "\n";
@@ -32,8 +32,7 @@ const allTypesOfCount = function(string, options) {
 const optionOutput = {
   l: lineCount,
   w: wordCount,
-  c: byteCount,
-  default: allTypesOfCount
+  c: byteCount
 };
 
 const readContent = function(files, readFileSync) {
@@ -58,15 +57,6 @@ const sumArrays = function(array1, array2) {
 
 const wc = function(args, readFileSync) {
   let { options, fileNames } = parseInputs(args);
-  if (options.length == 3) {
-    let content = readContent(fileNames, readFileSync);
-    return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
-  }
-
-  if (options.length == 2) {
-    let content = readContent(fileNames, readFileSync);
-    return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
-  }
   let content = readContent(fileNames, readFileSync);
   return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
 };
