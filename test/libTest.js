@@ -7,7 +7,8 @@ const {
   formatOutput,
   readContent,
   countForMultipleFiles,
-  sumArrays
+  sumArrays,
+  countForTwoOptions
 } = require("../src/lib.js");
 
 const contents = {
@@ -82,6 +83,30 @@ describe("wc", () => {
   it("should return all types of counts along with the total content for -lwc option", () => {
     let input = wc(["-w", "-l", "-c", "numbers"], readFileSync);
     let expectedOutput = "\t6\t7\t13 numbers";
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("should return line and word count for -l -w option", () => {
+    let input = wc(["-w", "-l", "numbers"], readFileSync);
+    let expectedOutput = "\t6\t7 numbers";
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("should return word and byte count for -w -c option", () => {
+    let input = wc(["-c", "-w", "numbers"], readFileSync);
+    let expectedOutput = "\t7\t13 numbers";
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("should return line and word count for -lw option", () => {
+    let input = wc(["-wl", "numbers"], readFileSync);
+    let expectedOutput = "\t6\t7 numbers";
+    assert.deepEqual(input, expectedOutput);
+  });
+
+  it("should return line and word count for -lc option", () => {
+    let input = wc(["-cl", "numbers"], readFileSync);
+    let expectedOutput = "\t6\t13 numbers";
     assert.deepEqual(input, expectedOutput);
   });
 });
@@ -182,5 +207,14 @@ describe("sumArrays", () => {
   });
   it("should return sum for single elements in each array", () => {
     assert.deepEqual(sumArrays([1], [4]), [5]);
+  });
+});
+
+describe("countForTwo options", () => {
+  it("should return two types of counts as per input", () => {
+    let string = ["a\nb\nc\nd\ne\nf\ng"];
+    assert.deepEqual(countForTwoOptions(string, ["numbers"], ["-w", "-c"]), [
+      "\t7\t13 numbers"
+    ]);
   });
 });
