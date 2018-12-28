@@ -28,7 +28,7 @@ const sortOptions = function(options) {
       .split("")
       .includes("l")
   ) {
-    return ["-w", "-c"];
+    return ["w", "c"];
   }
 
   if (
@@ -37,23 +37,25 @@ const sortOptions = function(options) {
       .split("")
       .includes("w")
   ) {
-    return ["-l", "-c"];
+    return ["l", "c"];
   }
 
-  return ["-l", "-w"];
+  return ["l", "w"];
 };
 
+order = ['-l','-w','-c']
 const parseInputs = function(args) {
   let index = 0;
   let options = [];
   while (index < args.length && args[index].startsWith("-")) {
-    options.push(args[index]);
+    options = options.concat(args[index].slice(1).split(''))
     index++;
   }
 
   if (index == 0) {
-    options = ["-lcw"];
+    options = ["l","c","w"];
   }
+  
   options = findUniqueElements(options);
   let fileNames = args.slice(index);
   return { options, fileNames };

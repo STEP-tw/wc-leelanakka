@@ -29,7 +29,7 @@ describe("lineCount", () => {
 });
 
 describe("wc", () => {
-  it("it should return the number of the lines in a file", () => {
+  it("it should return all types of count in a file", () => {
     let input = wc(["alphabets"], readFileSync);
     assert.deepEqual(input, "\t6\t7\t13 alphabets");
   });
@@ -174,7 +174,7 @@ describe("countForMultipleFiles", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
-      "-w"
+      "w"
     );
     let expectedOutput = ["\t7 alphabets", "\t7 numbers", "\t14 total"];
     assert.deepEqual(input, expectedOutput);
@@ -184,7 +184,7 @@ describe("countForMultipleFiles", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
-      "-l"
+      "l"
     );
     let expectedOutput = ["\t6 alphabets", "\t6 numbers", "\t12 total"];
     assert.deepEqual(input, expectedOutput);
@@ -194,7 +194,7 @@ describe("countForMultipleFiles", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
-      "-c"
+      "c"
     );
     let expectedOutput = ["\t13 alphabets", "\t13 numbers", "\t26 total"];
     assert.deepEqual(input, expectedOutput);
@@ -213,7 +213,7 @@ describe("sumArrays", () => {
 describe("countForTwo options", () => {
   it("should return two types of counts as per input", () => {
     let string = ["a\nb\nc\nd\ne\nf\ng"];
-    assert.deepEqual(countForTwoOptions(string, ["numbers"], ["-w", "-c"]), [
+    assert.deepEqual(countForTwoOptions(string, ["numbers"], ["w", "c"]), [
       "\t7\t13 numbers"
     ]);
   });

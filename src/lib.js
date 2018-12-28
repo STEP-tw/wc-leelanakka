@@ -30,9 +30,9 @@ const allTypesOfCount = function(string) {
 };
 
 const optionOutput = {
-  "-l": lineCount,
-  "-w": wordCount,
-  "-c": byteCount,
+  l: lineCount,
+  w: wordCount,
+  c: byteCount,
   default: allTypesOfCount
 };
 
@@ -68,25 +68,18 @@ const countForTwoOptions = function(string, files, options) {
 
 const wc = function(args, readFileSync) {
   let { options, fileNames } = parseInputs(args);
-
-  if (options.length == 3 || options[0].length == 4) {
+  if (options.length == 3) {
     let content = readContent(fileNames, readFileSync);
     return countForMultipleFiles(content, fileNames, "default").join(NEWLINE);
   }
 
-  if (options.length == 2 || options[0].length == 3) {
+  if (options.length == 2) {
     options = sortOptions(options);
     let content = readContent(fileNames, readFileSync);
     return countForTwoOptions(content, fileNames, options).join(NEWLINE);
   }
-
-  if (isSingleOption(args[0])) {
-    let content = readContent(fileNames, readFileSync);
-    return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
-  }
-
   let content = readContent(fileNames, readFileSync);
-  return countForMultipleFiles(content, fileNames, "default").join(NEWLINE);
+  return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
 };
 
 const formatOutput = function(counts, file) {
