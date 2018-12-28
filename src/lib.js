@@ -1,9 +1,5 @@
 const { isSingleOption, parseInputs } = require("./parser.js");
-
-const TAB = "\t";
-const NEWLINE = "\n";
-const SPACE = " ";
-const EMPTY = "";
+const { TAB, NEWLINE, SPACE, EMPTY } = require("./constants.js");
 
 const lineCount = function(string) {
   let numberOfLines = string.split(NEWLINE).length - 1;
