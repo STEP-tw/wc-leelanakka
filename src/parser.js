@@ -39,11 +39,14 @@ const parseInputs = function(args) {
     options.push(args[index]);
     index++;
   }
+
   if (index == 0) {
     options = ["-lcw"];
   }
+
   let fileNames = args.slice(index);
   return { options, fileNames };
+  
 };
 module.exports = {
   isMultipleOptions,

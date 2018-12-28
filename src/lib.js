@@ -2,7 +2,8 @@ const {
   isMultipleOptions,
   isSingleOption,
   isTwoOptions,
-  sortOptions
+  sortOptions,
+  parseInputs
 } = require("./parser.js");
 
 const TAB = "\t";
@@ -72,35 +73,26 @@ const countForTwoOptions = function(string, files, options) {
 };
 
 const wc = function(args, readFileSync) {
-  let file = args;
-  let option = "-l";
+  let { options, fileNames } = parseInputs(args);
 
-  if (isMultipleOptions(args)) {
-    file = args.slice(-1);
-    let content = readContent(file, readFileSync);
-    return countForMultipleFiles(content, file, "default").join(NEWLINE);
+  if (options.length == 3 || options[0].length == 4) {
+    let content = readContent(fileNames, readFileSync);
+    return countForMultipleFiles(content, fileNames, "default").join(NEWLINE);
   }
 
-  if (isTwoOptions(args)) {
-    file = args.slice(-1);
-    options = sortOptions(args.slice(0, -1));
-    let content = readContent(file, readFileSync);
-    return countForTwoOptions(content, file, options).join(NEWLINE);
+  if (options.length == 2 || options[0].length == 3) {
+    options = sortOptions(options);
+    let content = readContent(fileNames, readFileSync);
+    return countForTwoOptions(content, fileNames, options).join(NEWLINE);
   }
 
   if (isSingleOption(args[0])) {
-    option = args[0];
-    file = args.slice(1);
-    let content = readContent(file, readFileSync);
-    return countForMultipleFiles(content, file, option).join(NEWLINE);
+    let content = readContent(fileNames, readFileSync);
+    return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
   }
 
-  if (args[0].startsWith("-")) {
-    file = args.slice(1);
-  }
-
-  let content = readContent(file, readFileSync);
-  return countForMultipleFiles(content, file, "default").join(NEWLINE);
+  let content = readContent(fileNames, readFileSync);
+  return countForMultipleFiles(content, fileNames, "default").join(NEWLINE);
 };
 
 const formatOutput = function(counts, file) {
