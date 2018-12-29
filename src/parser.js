@@ -15,6 +15,12 @@ const sortOptions = function(options) {
   return order.filter(x => options.includes(x));
 };
 
+const longOptions = {
+  l: "line",
+  w: "word",
+  c: "byte"
+};
+
 const parseInputs = function(args) {
   let index = 0;
   let options = [];
@@ -27,7 +33,7 @@ const parseInputs = function(args) {
     options = ["l", "w", "c"];
   }
 
-  options = sortOptions(options);
+  options = sortOptions(options).map(option => longOptions[option]);
   let fileNames = args.slice(index);
   return { options, fileNames };
 };

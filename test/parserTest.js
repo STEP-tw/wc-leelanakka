@@ -12,42 +12,42 @@ describe("sortOptions", () => {
 describe("parseOptions", () => {
   it("should retun only elements that starts with -", () => {
     assert.deepEqual(parseInputs(["-l", "-w"]), {
-      options: ["l", "w"],
+      options: ["line", "word"],
       fileNames: []
     });
   });
 
   it("should retun only elements that starts with '-' shouldn't give other ", () => {
     assert.deepEqual(parseInputs(["-l", "-w", "file1"]), {
-      options: ["l", "w"],
+      options: ["line", "word"],
       fileNames: ["file1"]
     });
   });
 
   it("should retun only elements that starts with -", () => {
     assert.deepEqual(parseInputs(["-l", "-w"]), {
-      options: ["l", "w"],
+      options: ["line", "word"],
       fileNames: []
     });
   });
 
   it("should return even for three options together", () => {
     assert.deepEqual(parseInputs(["-clw"]), {
-      options: ["l", "w", "c"],
+      options: ["line", "word", "byte"],
       fileNames: []
     });
   });
 
   it("should only return files and options as -lcw for default", () => {
     assert.deepEqual(parseInputs(["file1", "file2"]), {
-      options: ["l", "w", "c"],
+      options: ["line", "word", "byte"],
       fileNames: ["file1", "file2"]
     });
   });
 
   it("should retun only elements that starts with -", () => {
     assert.deepEqual(parseInputs(["-l", "-l"]), {
-      options: ["l"],
+      options: ["line"],
       fileNames: []
     });
   });

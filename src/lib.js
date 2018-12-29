@@ -1,5 +1,5 @@
 const { isSingleOption, parseInputs } = require("./parser.js");
-const { TAB, NEWLINE, SPACE, EMPTY } = require("./constants.js");
+const { TAB, NEWLINE, SPACE, EMPTY, ENCODING_TYPE } = require("./constants.js");
 
 const lineCount = function(string) {
   let numberOfLines = string.split(NEWLINE).length - 1;
@@ -26,13 +26,13 @@ const allTypesOfCount = function(string, options) {
 };
 
 const optionOutput = {
-  l: lineCount,
-  w: wordCount,
-  c: byteCount
+  line: lineCount,
+  word: wordCount,
+  byte: byteCount
 };
 
 const readContent = function(files, readFileSync) {
-  return files.map(fileName => readFileSync(fileName, "utf8"));
+  return files.map(fileName => readFileSync(fileName, ENCODING_TYPE));
 };
 
 const countForMultipleFiles = function(string, files, option) {

@@ -159,7 +159,7 @@ describe("countForMultipleFiles", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
-      ["l", "w", "c"]
+      ["line", "word", "byte"]
     );
     let expectedOutput = [
       "\t6\t7\t13 alphabets",
@@ -173,7 +173,7 @@ describe("countForMultipleFiles", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
-      ["w"]
+      ["word"]
     );
     let expectedOutput = ["\t7 alphabets", "\t7 numbers", "\t14 total"];
     assert.deepEqual(input, expectedOutput);
@@ -183,7 +183,7 @@ describe("countForMultipleFiles", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
-      ["l"]
+      ["line"]
     );
     let expectedOutput = ["\t6 alphabets", "\t6 numbers", "\t12 total"];
     assert.deepEqual(input, expectedOutput);
@@ -193,7 +193,7 @@ describe("countForMultipleFiles", () => {
     let input = countForMultipleFiles(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
-      ["c"]
+      ["byte"]
     );
     let expectedOutput = ["\t13 alphabets", "\t13 numbers", "\t26 total"];
     assert.deepEqual(input, expectedOutput);
