@@ -35,7 +35,7 @@ const readContent = function(files, readFileSync) {
   return files.map(fileName => readFileSync(fileName, ENCODING_TYPE));
 };
 
-const countForMultipleFiles = function(string, files, option) {
+const count = function(string, files, option) {
   let output = string.map(x => {
     return allTypesOfCount(x, option);
   });
@@ -54,7 +54,7 @@ const sumArrays = function(array1, array2) {
 const wc = function(args, readFileSync) {
   let { options, fileNames } = parseInputs(args);
   let content = readContent(fileNames, readFileSync);
-  return countForMultipleFiles(content, fileNames, options).join(NEWLINE);
+  return count(content, fileNames, options).join(NEWLINE);
 };
 
 const formatOutput = function(counts, file) {
@@ -68,7 +68,7 @@ module.exports = {
   byteCount,
   formatOutput,
   readContent,
-  countForMultipleFiles,
+  count,
   sumArrays,
   isSingleOption
 };

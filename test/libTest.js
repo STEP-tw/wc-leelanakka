@@ -6,7 +6,7 @@ const {
   byteCount,
   formatOutput,
   readContent,
-  countForMultipleFiles,
+  count,
   sumArrays
 } = require("../src/lib.js");
 
@@ -156,7 +156,7 @@ describe("readContent", () => {
 
 describe("countForMultipleFiles", () => {
   it("it should return all types of the contents along with total at the end", () => {
-    let input = countForMultipleFiles(
+    let input = count(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
       ["line", "word", "byte"]
@@ -170,7 +170,7 @@ describe("countForMultipleFiles", () => {
   });
 
   it("it should return word count of the contents along with total at the end", () => {
-    let input = countForMultipleFiles(
+    let input = count(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
       ["word"]
@@ -180,7 +180,7 @@ describe("countForMultipleFiles", () => {
   });
 
   it("it should return line count of the contents along with total at the end", () => {
-    let input = countForMultipleFiles(
+    let input = count(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
       ["line"]
@@ -190,7 +190,7 @@ describe("countForMultipleFiles", () => {
   });
 
   it("it should return byt count of the contents along with total at the end", () => {
-    let input = countForMultipleFiles(
+    let input = count(
       ["a\nb\nc\nd\ne\nf\ng", "1\n2\n3\n4\n5\n6\n7"],
       ["alphabets", "numbers"],
       ["byte"]
